@@ -245,7 +245,7 @@ module DatabaseCleaner::ActiveRecord
 
     def tables_to_truncate(connection)
       tables_in_db = cache_tables? ? connection.database_cleaner_table_cache : connection.tables
-      to_reject = (@tables_to_exclude + connection.database_cleaner_view_cache)
+      to_reject = (@tables_to_exclude + connection.views)
       (@only || tables_in_db).reject do |table|
         if ( m = table.match(/([^.]+)$/) )
           to_reject.include?(m[1])
